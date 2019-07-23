@@ -1,0 +1,27 @@
+<center bgcolor="#EFF6FF">
+    <form action="{% url 'index' %}" method='POST'>
+        {% csrf_token %}
+        <label name='tarefa'>Tarefa: </label>
+        <input type="text" id="tarefa" name="descricao" placeholder="Digite a tarefa?" required >
+        <p><label >Pessoa: </label>
+            <select name='pessoa'>
+                {% for pessoa in Pessoas %}
+                    <option value="{{ pessoa.id }}"> {{ pessoa.nome }} </option>
+                {% endfor %}
+
+            </select>
+        </p>
+        <button  type="submit"  >Postar</button>
+    </form>
+
+    <p><b>Tarefas</b></p>
+    {% for tarefa in Tarefas %}
+        <p>{{ tarefa.descricao }} | {{ tarefa.pessoa.nome }}
+            {% if tarefa.concluida is False %}
+                <a href="{% url 'finalizar' tarefa.id %}"<button type="button">Finalizar</button></a>
+            {% else %}
+                <b>FINALIZADA</b>
+            {% endif %}
+        </p>
+    {% endfor %}
+</center>
